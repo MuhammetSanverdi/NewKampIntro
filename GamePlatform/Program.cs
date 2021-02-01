@@ -16,6 +16,9 @@ namespace GamePlatform
                 CampaignName = "Black Friday",
                 DiscountRate = 20
             };
+            CampaignManager campaignManager = new CampaignManager();
+            
+
             Customers customer = new Customers
             {
                 FirstName = "Muhammet",
@@ -45,12 +48,12 @@ namespace GamePlatform
             GameManager gameManager = new GameManager();
             gameManager.Add(game1);
             gameManager.Update(game);
-            gameManager.Delete(game);
 
-
+            campaignManager.Add(campaign);
             GameSaleManager gameSaleManager = new GameSaleManager(campaign, game);
             gameSaleManager.GameSale(game1,campaign,customer);
-
+            campaignManager.Delete(campaign);
+            gameManager.Delete(game);
 
         }
     }
