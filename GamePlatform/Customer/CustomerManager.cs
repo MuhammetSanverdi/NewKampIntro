@@ -15,7 +15,7 @@ namespace GamePlatform.Customer
         {
             if (_customerVerificationManager.UserIfRealPerson(customer)==true)
             {
-                Console.WriteLine("Kullanıcı eklendi");
+                Console.WriteLine("Bilgileriniz doğrulandı. \nKullanıcı eklendi");
             }
             else
             {
