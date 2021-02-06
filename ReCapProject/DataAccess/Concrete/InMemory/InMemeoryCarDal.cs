@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -24,7 +25,7 @@ namespace DataAccess.Concrete.InMemory
 
         }
 
-        public List<Car> GetAll()
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
             return cars;
         }
@@ -51,10 +52,9 @@ namespace DataAccess.Concrete.InMemory
             cars.Remove(deletedCar);
         }
 
-        public Car GetById(int id)
+        public Car Get(Expression<Func<Car, bool>> filter)
         {
-            Car comingWithId = cars.SingleOrDefault(c => c.CarId == id);
-            return comingWithId;
+            return null;
         }
     }
        
