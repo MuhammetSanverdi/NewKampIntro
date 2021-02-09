@@ -6,6 +6,7 @@ using System.Text;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Runtime.CompilerServices;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -56,6 +57,12 @@ namespace DataAccess.Concrete.InMemory
         {
             return null;
         }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
     }
        
     

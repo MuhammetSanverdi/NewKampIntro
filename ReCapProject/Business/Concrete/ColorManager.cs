@@ -16,6 +16,11 @@ namespace Business.Concrete
                 _colorDal = colorDal;
             }
 
+            public List<Color> GetById(int Id)
+            {
+                throw new NotImplementedException();
+            }
+
             public void Add(Color color)
             {
                 _colorDal.Add(color);
