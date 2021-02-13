@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Core.Entities;
 using DataAccess.Abstract;
-using Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccess.EntityFramework
