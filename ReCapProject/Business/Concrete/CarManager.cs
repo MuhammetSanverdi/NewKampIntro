@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
@@ -25,19 +26,9 @@ namespace Business.Concrete
 
         }
 
-        public IDataResult<List<Car>> GetBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car, bool>> filter = null)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.BrandId==id),Messages.GetBrandIdListed);
-        }
-
-        public IDataResult<List<Car>> GetColorId(int id)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id),Messages.GetColorIdListed);
-        }
-
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(filter));
         }
 
         public IResult Add(Car car)

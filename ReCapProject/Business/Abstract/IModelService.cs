@@ -9,7 +9,7 @@ namespace Business.Abstract
     public interface IModelService
     {
         IDataResult<List<Model>> GetAll();
-        IDataResult<List<Model>> GetByBrandId(int id);
+        IDataResult<List<Model>> GetByModelId(int id);
         IResult Add(Model model);
         IResult Update(Model model);
         IResult Delete(Model model);
