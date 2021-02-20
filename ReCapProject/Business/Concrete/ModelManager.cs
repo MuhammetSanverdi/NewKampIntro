@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -30,15 +32,9 @@ namespace Business.Concrete
 
         public IResult Add(Model model)
         {
-            if (model.ModelName.Length > 2)
-            {
+            ValidationTool.Validate(new ModelValidation(),model);
                 _modelDal.Add(model);
                 return new SuccessResult(Messages.ModelAdded);
-            }
-            else
-            {
-                return new SuccessResult(Messages.ModelNameInvalid);
-            }
         }
 
         public IResult Update(Model model)

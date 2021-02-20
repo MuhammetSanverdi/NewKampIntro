@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -21,13 +23,9 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
-            if (_rentalDal.GetRentalDetails(r=>r.CarId == rental.CarId).Count>0)
-            {
+            ValidationTool.Validate(new RentalValidation(),rental);
                 _rentalDal.Add(rental);
                 return new SuccessResult();
-            }
-
-            return new ErrorResult();
         }
 
         public IResult Update(Rental rental)

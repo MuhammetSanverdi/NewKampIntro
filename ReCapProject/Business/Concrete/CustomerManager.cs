@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -28,16 +30,9 @@ namespace Business.Concrete
 
         public IResult Add(Customer customer)
         {
-            if (customer.CompanyName.Length>=2 && customer.CompanyName.Length>=2)
-            {
+            ValidationTool.Validate(new CustomerValidation(),customer);
                 _customerDal.Add(customer);
                 return new SuccessResult();
-            }
-            else
-            {
-                return new ErrorResult();
-            }
-            
         }
 
         public IResult Delete(Customer customer)

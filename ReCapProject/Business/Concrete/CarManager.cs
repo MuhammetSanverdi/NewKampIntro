@@ -4,14 +4,17 @@ using System.Linq.Expressions;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
-    public class CarManager:ICarService
+    public class CarManager : ICarService
     {
         ICarDal _carDal;
 
@@ -22,7 +25,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
 
         }
 
@@ -33,24 +36,16 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if ((car.DailyPrice) > 0 && car.Description.Length>=2)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-            else
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
-            
-            
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new Result(true,Messages.CarUpdated);
-            
+            return new Result(true, Messages.CarUpdated);
+
         }
 
         public IResult Delete(Car car)
@@ -67,7 +62,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max));
-            
+
         }
     }
 }

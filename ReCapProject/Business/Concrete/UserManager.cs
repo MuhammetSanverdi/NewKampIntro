@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -29,15 +31,11 @@ namespace Business.Concrete
 
         public IResult Add(User user)
         {
-            if (user.FirstName.Length>=2 && user.LastName.Length >= 2 && user.Password.Length >= 6)
-            {
+            ValidationTool.Validate(new UserValidaton(),user);
                 _userDal.Add(user);
                 return new SuccessResult();
-            }
-            else
-            {
-                return new ErrorResult();
-            }
+            
+            
             
         }
 
