@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,10 +22,11 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
+
+        [ValidationAspect(typeof(RentalValidation))]
         public IResult Add(Rental rental)
         {
-            ValidationTool.Validate(new RentalValidation(),rental);
-                _rentalDal.Add(rental);
+            _rentalDal.Add(rental);
                 return new SuccessResult();
         }
 

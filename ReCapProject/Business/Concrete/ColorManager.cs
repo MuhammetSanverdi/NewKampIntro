@@ -4,6 +4,7 @@ using System.Text;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -25,9 +26,9 @@ namespace Business.Concrete
                 return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == id));
             }
 
+            [ValidationAspect(typeof(ColorValidation))]
             public IResult Add(Color color)
             {
-                ValidationTool.Validate(new ColorValidation(),color);
                 _colorDal.Add(color);
                 return new SuccessResult(Messages.ColorAdded);
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -29,14 +30,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll(u=>u.UserId==id));
         }
 
+        [ValidationAspect(typeof(UserValidaton))]
         public IResult Add(User user)
         {
-            ValidationTool.Validate(new UserValidaton(),user);
                 _userDal.Add(user);
                 return new SuccessResult();
-            
-            
-            
         }
 
         public IResult Delete(User user)
