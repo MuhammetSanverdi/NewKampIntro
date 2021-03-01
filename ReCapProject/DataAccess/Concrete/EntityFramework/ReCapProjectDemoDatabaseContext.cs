@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class ReCapProjectDemoDatabaseContext:DbContext
+    public class ReCapProjectDemoDatabaseContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
                 @"Server=(localdb)\mssqllocaldb;Database=ReCapProjectDemoDatabase;Trusted_Connection=true");
-               
+
         }
 
         public DbSet<Car> Cars { get; set; }
@@ -22,6 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rental> Rentals { get; set; }
-        
+        public DbSet<CarImage> CarImages { get; set; }
+
     }
 }

@@ -14,7 +14,7 @@ namespace ConsoleUI
             
             
             //var result = carManager.GetAll();
-            var result = rentalManager.GetRentalDetailsByRentalId(2).Data;
+            var result = rentalManager.GetRentalDetailByRentalId(2).Data;
 
             foreach (var rental in result)
             {
